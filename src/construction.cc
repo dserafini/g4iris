@@ -8,32 +8,35 @@ MyDetectorConstruction::MyDetectorConstruction()
 MyDetectorConstruction::~MyDetectorConstruction()
 {}
 
+void MyDetectorConstruction::DefineMaterials()
+{
+  G4NistManager *nist = G4NistManager::Instance();
+
+  air = nist->FindOrBuildMaterial("G4_AIR");
+  sorbitol = new G4Material("sorbitol", 1.4 * g/cm3, 3);
+
+  sorbitol->AddElement(nist->FindOrBuildElement("C"), 6);
+  sorbitol->AddElement(nist->FindOrBuildElement("H"), 14);
+  sorbitol->AddElement(nist->FindOrBuildElement("O"), 6);
+}
+
 G4VPhysicalVolume* MyDetectorConstruction::Construct()
 {
-  // Get nist material manager
-  G4NistManager* nist = G4NistManager::Instance();
-
-  // Envelope parameters
-  //
-  G4double env_sizeXY = 20*cm, env_sizeZ = 30*cm;
-  G4Material* env_mat = nist->FindOrBuildMaterial("G4_WATER");
+  // Define materials
+  DefineMaterials();
 
   // Option to switch on/off checking of volumes overlaps
-  //
   G4bool checkOverlaps = true;
 
-  //
   // World
-  //
-  G4double world_sizeXY = 1.2*env_sizeXY;
-  G4double world_sizeZ  = 1.2*env_sizeZ;
-  G4Material* world_mat = nist->FindOrBuildMaterial("G4_AIR");
+  G4double world_sizeXY = 10 * cm;
+  G4double world_sizeZ  = 10 * cm;
 
   auto solidWorld = new G4Box("World",                           // its name
     0.5 * world_sizeXY, 0.5 * world_sizeXY, 0.5 * world_sizeZ);  // its size
 
   auto logicWorld = new G4LogicalVolume(solidWorld,  // its solid
-    world_mat,                                       // its material
+    air,                                       // its material
     "World");                                        // its name
 
   auto physWorld = new G4PVPlacement(nullptr,  // no rotation
@@ -45,8 +48,11 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
     0,                                         // copy number
     checkOverlaps);                            // overlaps checking
 
-  //
-  //always return the physical World
-  //
+  // tablet
+  solidTablet = new G4Tubs("solidTablet", 0, tabletDiameter / 2, tabletThickness / 2, 0, 360 * deg);
+  logicalTablet = new G4LogicalVolume(solidTablet, sorbitol, "logicalTablet");
+  new G4PVPlacement(nullptr, G4ThreeVector(), logicalTablet, "physTablet", logicWorld, false, 0, checkOverlaps);
+
+  // always return the physical World
   return physWorld;
 }
