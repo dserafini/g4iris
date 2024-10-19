@@ -20,9 +20,15 @@ public:
 private:
     G4Material *air, *sorbitol;
 
+    // tablet point
+    G4double pointSide;
+    G4Box *solidPoint;
+    G4LogicalVolume *logicalPoint;
+
     // tablet
-    G4double tabletDiameter = 13 * mm;
-    G4double tabletThickness = 1.5 * mm;
+    G4double tabletDiameter;
+    G4double tabletThickness;
+    G4ThreeVector tabletPosition;
     G4Tubs *solidTablet;
     G4LogicalVolume *logicalTablet;
 };

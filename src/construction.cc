@@ -48,10 +48,19 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
     0,                                         // copy number
     checkOverlaps);                            // overlaps checking
 
+  // detection point
+  pointSide = 2 * cm;
+  solidPoint = new G4Box("solidPoint", pointSide / 2, pointSide / 2, pointSide / 2);
+  logicalPoint = new G4LogicalVolume(solidPoint, air, "logicalPoint");
+  new G4PVPlacement(nullptr, G4ThreeVector(), logicalPoint, "physPoint", logicWorld, false, 0, checkOverlaps);
+
   // tablet
+  tabletDiameter = 13 * mm;
+  tabletThickness = 1.5 * mm;
+  tabletPosition = G4ThreeVector(0, 0, + tabletThickness / 2);
   solidTablet = new G4Tubs("solidTablet", 0, tabletDiameter / 2, tabletThickness / 2, 0, 360 * deg);
   logicalTablet = new G4LogicalVolume(solidTablet, sorbitol, "logicalTablet");
-  new G4PVPlacement(nullptr, G4ThreeVector(), logicalTablet, "physTablet", logicWorld, false, 0, checkOverlaps);
+  new G4PVPlacement(nullptr, tabletPosition, logicalTablet, "physTablet", logicalPoint, false, 0, checkOverlaps);
 
   // always return the physical World
   return physWorld;

@@ -8,6 +8,8 @@
 #include "G4ParticleTable.hh"
 #include "G4IonTable.hh"
 #include "G4ChargedGeantino.hh"
+#include "G4Gamma.hh"
+#include "G4Proton.hh"
 #include "Randomize.hh"
 
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction
