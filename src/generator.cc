@@ -29,6 +29,9 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
     G4AnalysisManager *man = G4AnalysisManager::Instance();
     man->FillNtupleDColumn(0, 3, energy / keV); // initial energy
     fParticleGun->SetParticleDefinition(G4Gamma::Definition());
+    fParticleGun->SetParticleEnergy( energy );
 
     fParticleGun->GeneratePrimaryVertex(anEvent);
+    G4cout << "generated " << fParticleGun->GetParticleDefinition()->GetParticleName() ;
+    G4cout << " of energy " << fParticleGun->GetParticleEnergy() / keV << " keV" << G4endl;
 }
