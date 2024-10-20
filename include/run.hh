@@ -14,6 +14,11 @@ public:
     
     virtual void BeginOfRunAction(const G4Run*);
     virtual void EndOfRunAction(const G4Run*);
+
+    void AddOneCross() { fCross++; }
+
+private:
+    G4int fCross;
 };
 
 #endif

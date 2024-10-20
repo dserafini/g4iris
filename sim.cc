@@ -29,7 +29,7 @@ int main(int argc, char** argv)
     runManager->SetUserInitialization(physicsList);
 
     runManager->SetUserInitialization(new MyActionInitialization());
-
+  
     if (argc == 1)
     {
         ui = new G4UIExecutive(argc, argv);

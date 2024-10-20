@@ -1,8 +1,9 @@
 #include "event.hh"
 
-MyEventAction::MyEventAction(MyRunAction*)
+MyEventAction::MyEventAction(MyRunAction* run)
 {
     fEdep = 0.;
+    fRun = run;
 }
 
 MyEventAction::~MyEventAction()
@@ -11,15 +12,19 @@ MyEventAction::~MyEventAction()
 void MyEventAction::BeginOfEventAction(const G4Event*)
 {
     fEdep = 0.;
+    fCrossed = false;
 }
 
 void MyEventAction::EndOfEventAction(const G4Event*)
 {
-    G4cout << "Energy deposition: " << fEdep << G4endl;
+    G4cout << "Energy deposition: " << fEdep / keV << " keV" << G4endl;
 
     G4AnalysisManager *man = G4AnalysisManager::Instance();
 
-    man->FillNtupleDColumn(2, 0, fEdep);
+    man->FillNtupleDColumn(0, 4, fEdep / keV);
 
-    man->AddNtupleRow(2);
+    man->AddNtupleRow(0);
+
+    if (fCrossed)
+        fRun->AddOneCross();
 }

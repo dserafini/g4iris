@@ -8,4 +8,4 @@
 /vis/scene/add/axes -10 -10 -10 10 cm
 /vis/scene/add/eventID
 /vis/scene/endOfEventAction accumulate
-/gun/particle proton
+# /gun/particle proton

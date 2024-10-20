@@ -25,12 +25,10 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
 {
     G4ParticleDefinition* particle = fParticleGun->GetParticleDefinition();
 
-    if(particle == G4ChargedGeantino::ChargedGeantino())
-    {
-        G4double energy = 100. * keV;
-
-        fParticleGun->SetParticleDefinition(G4Gamma::Definition());
-    }
+    G4double energy = 10. * keV;
+    G4AnalysisManager *man = G4AnalysisManager::Instance();
+    man->FillNtupleDColumn(0, 3, energy / keV); // initial energy
+    fParticleGun->SetParticleDefinition(G4Gamma::Definition());
 
     fParticleGun->GeneratePrimaryVertex(anEvent);
 }

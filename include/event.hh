@@ -5,6 +5,7 @@
 #include "G4Event.hh"
 
 #include "G4AnalysisManager.hh"
+#include "G4SystemOfUnits.hh"
 
 #include "run.hh"
 
@@ -18,9 +19,13 @@ public:
     virtual void EndOfEventAction(const G4Event*);
     
     void AddEdep(G4double edep) { fEdep += edep; } 
+    void Cross() {fCrossed = true; }
+    bool isCrossed() {return fCrossed; }
     
 private:
     G4double fEdep;
+    G4bool fCrossed;
+    MyRunAction* fRun;
 };
 
 #endif
