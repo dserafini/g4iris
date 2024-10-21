@@ -12,6 +12,10 @@ MyDetectorConstruction::MyDetectorConstruction()
   fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
   hpgeFaceCentreDistance = 3 * cm;
 
+  fMessengerPoint = new G4GenericMessenger(this, "/point/", "Detection point properties");
+  fMessengerPoint->DeclarePropertyWithUnit("xpos", "mm", pointXpos, "X position of the tablet");
+  pointXpos = 1 * cm;
+
 }
 
 MyDetectorConstruction::~MyDetectorConstruction()
@@ -76,15 +80,16 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
 
   // tablet
   tabletDiameter = 13 * mm;
-  tabletPosition = G4ThreeVector(0, 0, + tabletThickness / 2);
+  tabletPosition = G4ThreeVector(0, 0, 0); // source is 2 um from the tablet surface, no sense bu it's temporary
 
   // detection point
   pointSide = 2 * cm;
-  pointDiameter = tabletDiameter * 1.2;
-  pointThickness = tabletThickness * 1.2;
-  solidPoint = new G4Tubs("solidPoint", 0, tabletDiameter / 1.9, tabletThickness / 1.9, 0, 360 * deg);
+  pointDiameter = tabletDiameter + 2 * um;
+  pointThickness = tabletThickness + 2 * um;
+  pointPosition = G4ThreeVector(pointXpos, 0, + pointThickness / 2);
+  solidPoint = new G4Tubs("solidPoint", 0, pointDiameter / 2, pointThickness / 2, 0, 360 * deg);
   logicalPoint = new G4LogicalVolume(solidPoint, air, "logicalPoint");
-  new G4PVPlacement(nullptr, G4ThreeVector(), logicalPoint, "physPoint", logicWorld, false, 0, checkOverlaps);
+  new G4PVPlacement(nullptr, pointPosition, logicalPoint, "physPoint", logicWorld, false, 0, checkOverlaps);
 
   // tablet
   solidTablet = new G4Tubs("solidTablet", 0, tabletDiameter / 2, tabletThickness / 2, 0, 360 * deg);

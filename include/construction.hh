@@ -31,9 +31,11 @@ private:
     G4LogicalVolume *logicWorld;
 
     // tablet point
-    G4double pointSide, pointDiameter, pointThickness;
+    G4double pointSide, pointDiameter, pointThickness, pointXpos;
+    G4ThreeVector pointPosition;
     G4Tubs *solidPoint;
     G4LogicalVolume *logicalPoint;
+    G4GenericMessenger *fMessengerPoint;
 
     // tablet
     G4Material *sorbitol;
