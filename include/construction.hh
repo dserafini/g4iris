@@ -9,7 +9,7 @@
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4GenericMessenger.hh"
-#include "detector.hh"
+#include "hpgeSD.hh"
 #include "G4SDManager.hh"
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction

@@ -1,5 +1,5 @@
-#ifndef DETECTOR_HH
-#define DETECTOR_HH
+#ifndef HPGESD_HH
+#define HPGESD_HH
 
 #include "G4VSensitiveDetector.hh"
 #include "G4RunManager.hh"

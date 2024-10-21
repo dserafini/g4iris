@@ -18,12 +18,10 @@ public:
     virtual void BeginOfEventAction(const G4Event*);
     virtual void EndOfEventAction(const G4Event*);
     
-    void AddEdep(G4double edep) { fEdep += edep; } 
     void Cross() {fCrossed = true; }
     bool isCrossed() {return fCrossed; }
     
 private:
-    G4double fEdep;
     G4bool fCrossed;
     MyRunAction* fRun;
 };
