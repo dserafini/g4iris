@@ -16,9 +16,11 @@ public:
     virtual void EndOfRunAction(const G4Run*);
 
     void AddOneCross() { fCross++; }
+    void AddOnePhotoevent() { fPhotopeakCount++; }
 
 private:
     G4int fCross;
+    G4int fPhotopeakCount;
 };
 
 #endif

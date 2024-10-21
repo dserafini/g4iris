@@ -17,7 +17,7 @@ void MyEventAction::BeginOfEventAction(const G4Event*)
     fCrossed = false;
 }
 
-void MyEventAction::EndOfEventAction(const G4Event*)
+void MyEventAction::EndOfEventAction(const G4Event* anEvent)
 {
     // G4cout << "Energy deposition: " << fEdep / keV << " keV" << G4endl;
 
@@ -31,4 +31,23 @@ void MyEventAction::EndOfEventAction(const G4Event*)
 
     if (fCrossed)
         fRun->AddOneCross();
+
+    G4PrimaryVertex* primaryVertex = anEvent->GetPrimaryVertex(0);
+    if (!primaryVertex) {
+        G4cerr << "No primary vertex found!" << G4endl;
+        return;
+    }
+
+    // Get the primary particle
+    G4PrimaryParticle* primaryParticle = primaryVertex->GetPrimary();
+    if (!primaryParticle) {
+        G4cerr << "No primary particle found!" << G4endl;
+        return;
+    }
+
+    // Get the kinetic energy of the primary particle
+    G4double primaryEnergy = primaryParticle->GetKineticEnergy();
+
+    if (fEdepHpge == primaryEnergy)
+        fRun->AddOnePhotoevent();
 }

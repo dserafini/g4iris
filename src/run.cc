@@ -31,6 +31,8 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
 
     // man->OpenFile("output"+strRunID.str()+".root");
     man->OpenFile("output.root");
+
+    fPhotopeakCount = 0;
 }
 
 void MyRunAction::EndOfRunAction(const G4Run* run)
@@ -42,4 +44,5 @@ void MyRunAction::EndOfRunAction(const G4Run* run)
 
     G4int nEvents = run->GetNumberOfEvent();
     G4cout << "Crossed " << fCross << " / " << nEvents << G4endl;
+    G4cout << "Photopeak events in the HPGe " << fPhotopeakCount << " / " << nEvents << G4endl;
 }
