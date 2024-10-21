@@ -2,7 +2,10 @@
 
 MyDetectorConstruction::MyDetectorConstruction()
 {
-    G4cout << "MyDetectorConstruction::MyDetectorConstruction" << G4endl;
+  G4cout << "MyDetectorConstruction::MyDetectorConstruction" << G4endl;
+  fMessengerTablet = new G4GenericMessenger(this, "/tablet/", "Tablet properties");
+  fMessengerTablet->DeclarePropertyWithUnit("thickness", "mm", tabletThickness, "Thickness of the tablet");
+  tabletThickness = 1.5 * mm;
 }
 
 MyDetectorConstruction::~MyDetectorConstruction()
@@ -13,7 +16,8 @@ void MyDetectorConstruction::DefineMaterials()
   G4NistManager *nist = G4NistManager::Instance();
 
   air = nist->FindOrBuildMaterial("G4_AIR");
-  sorbitol = new G4Material("sorbitol", 1.4 * g/cm3, 3);
+  G4double density = 275 * mg / ( CLHEP::pi * (13 / 2 * mm) * 1.5 * mm );
+  sorbitol = new G4Material("sorbitol", density, 3);
 
   sorbitol->AddElement(nist->FindOrBuildElement("C"), 6);
   sorbitol->AddElement(nist->FindOrBuildElement("H"), 14);
@@ -56,7 +60,6 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
 
   // tablet
   tabletDiameter = 13 * mm;
-  tabletThickness = 1.5 * mm;
   tabletPosition = G4ThreeVector(0, 0, + tabletThickness / 2);
   solidTablet = new G4Tubs("solidTablet", 0, tabletDiameter / 2, tabletThickness / 2, 0, 360 * deg);
   logicalTablet = new G4LogicalVolume(solidTablet, sorbitol, "logicalTablet");

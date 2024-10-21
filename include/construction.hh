@@ -8,6 +8,7 @@
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4GenericMessenger.hh"
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -31,6 +32,9 @@ private:
     G4ThreeVector tabletPosition;
     G4Tubs *solidTablet;
     G4LogicalVolume *logicalTablet;
+
+    // messenger
+    G4GenericMessenger *fMessengerTablet;
 };
 
 #endif
