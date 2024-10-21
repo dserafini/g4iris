@@ -14,6 +14,8 @@ MyPrimaryGenerator::MyPrimaryGenerator()
     fParticleGun->SetParticleMomentumDirection(mom);
     fParticleGun->SetParticleMomentum(100.*GeV);
     fParticleGun->SetParticleDefinition(particle);
+
+    fParticleGps = new G4GeneralParticleSource();
 }
 
 MyPrimaryGenerator::~MyPrimaryGenerator()
@@ -28,10 +30,13 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
     // fParticleGun->SetParticleDefinition(G4Gamma::Definition());
     // fParticleGun->SetParticleEnergy( energy );
     G4AnalysisManager *man = G4AnalysisManager::Instance();
-    man->FillNtupleDColumn(0, 3, fParticleGun->GetParticleEnergy() / keV); // initial energy
 
-    fParticleGun->GeneratePrimaryVertex(anEvent);
+    // man->FillNtupleDColumn(0, 3, fParticleGun->GetParticleEnergy() / keV); // initial energy
+    // fParticleGun->GeneratePrimaryVertex(anEvent);
     // G4ParticleDefinition* particle = fParticleGun->GetParticleDefinition();
     // G4cout << "generated " << fParticleGun->GetParticleDefinition()->GetParticleName() ;
     // G4cout << " of energy " << fParticleGun->GetParticleEnergy() / keV << " keV" << G4endl;
+
+    man->FillNtupleDColumn(0, 3, fParticleGps->GetParticleEnergy() / keV); // initial energy
+    fParticleGps->GeneratePrimaryVertex(anEvent);
 }
