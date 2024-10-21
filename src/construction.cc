@@ -105,7 +105,7 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
 
 void MyDetectorConstruction::ConstructSDandField()
 {
-  MySensitiveDetector *sensDetHpge = new MySensitiveDetector("SensitiveDetectorHpge");
+  MySensitiveHpge *sensDetHpge = new MySensitiveHpge("SensitiveDetectorHpge");
 
   if(logicalHpge != NULL)
     logicalHpge->SetSensitiveDetector(sensDetHpge);

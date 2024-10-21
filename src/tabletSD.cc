@@ -1,20 +1,20 @@
 #include "tabletSD.hh"
 
-MySensitiveDetector::MySensitiveDetector(G4String name) : G4VSensitiveDetector(name)
+MySensitiveTablet::MySensitiveTablet(G4String name) : G4VSensitiveDetector(name)
 {}
 
-MySensitiveDetector::~MySensitiveDetector()
+MySensitiveTablet::~MySensitiveTablet()
 {}
 
-void MySensitiveDetector::Initialize(G4HCofThisEvent*)
+void MySensitiveTablet::Initialize(G4HCofThisEvent*)
 {
-    // G4cout << "MySensitiveDetector::Initialize" << G4endl;
+    // G4cout << "MySensitiveTablet::Initialize" << G4endl;
     fEdepTablet = 0.;
 }
 
-G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
+G4bool MySensitiveTablet::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 {
-    // G4cout << "MySensitiveDetector::ProcessHits" << G4endl;
+    // G4cout << "MySensitiveTablet::ProcessHits" << G4endl;
     // track->SetTrackStatus(fStopAndKill);
     
     G4double edep = aStep->GetTotalEnergyDeposit();
@@ -23,9 +23,9 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     return true;
 }
 
-void MySensitiveDetector::EndOfEvent(G4HCofThisEvent*)
+void MySensitiveTablet::EndOfEvent(G4HCofThisEvent*)
 {
-    // G4cout << "MySensitiveDetector::EndOfEvent" << G4endl;
+    // G4cout << "MySensitiveTablet::EndOfEvent" << G4endl;
     G4AnalysisManager *man = G4AnalysisManager::Instance();
     man->FillNtupleDColumn(0, 4, fEdepTablet / keV);
 

@@ -1,20 +1,20 @@
 #include "hpgeSD.hh"
 
-MySensitiveDetector::MySensitiveDetector(G4String name) : G4VSensitiveDetector(name)
+MySensitiveHpge::MySensitiveHpge(G4String name) : G4VSensitiveDetector(name)
 {}
 
-MySensitiveDetector::~MySensitiveDetector()
+MySensitiveHpge::~MySensitiveHpge()
 {}
 
-void MySensitiveDetector::Initialize(G4HCofThisEvent*)
+void MySensitiveHpge::Initialize(G4HCofThisEvent*)
 {
-    // G4cout << "MySensitiveDetector::Initialize" << G4endl;
+    // G4cout << "MySensitiveHpge::Initialize" << G4endl;
     fEdepHpge = 0.;
 }
 
-G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
+G4bool MySensitiveHpge::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 {
-    // G4cout << "MySensitiveDetector::ProcessHits" << G4endl;
+    // G4cout << "MySensitiveHpge::ProcessHits" << G4endl;
     // track->SetTrackStatus(fStopAndKill);
     
     G4double edep = aStep->GetTotalEnergyDeposit();
@@ -23,9 +23,9 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     return true;
 }
 
-void MySensitiveDetector::EndOfEvent(G4HCofThisEvent*)
+void MySensitiveHpge::EndOfEvent(G4HCofThisEvent*)
 {
-    // G4cout << "MySensitiveDetector::EndOfEvent" << G4endl;
+    // G4cout << "MySensitiveHpge::EndOfEvent" << G4endl;
     G4AnalysisManager *man = G4AnalysisManager::Instance();
     man->FillNtupleDColumn(1, 0, fEdepHpge / keV);
 

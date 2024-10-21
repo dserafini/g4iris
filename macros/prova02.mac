@@ -10,4 +10,4 @@
 /gps/energy 100 keV
 /gps/ang/type iso
 /run/printProgress 10000
-/run/beamOn 100
+/run/beamOn 1000

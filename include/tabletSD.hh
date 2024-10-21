@@ -8,11 +8,11 @@
 #include "G4AnalysisManager.hh"
 #include "run.hh"
 
-class MySensitiveDetector : public G4VSensitiveDetector
+class MySensitiveTablet : public G4VSensitiveDetector
 {
 public:
-    MySensitiveDetector(G4String);
-    ~MySensitiveDetector();
+    MySensitiveTablet(G4String);
+    ~MySensitiveTablet();
     
 private:
     G4bool ProcessHits(G4Step *, G4TouchableHistory *) override;
