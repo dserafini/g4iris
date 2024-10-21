@@ -3,9 +3,15 @@
 MyDetectorConstruction::MyDetectorConstruction()
 {
   G4cout << "MyDetectorConstruction::MyDetectorConstruction" << G4endl;
+
   fMessengerTablet = new G4GenericMessenger(this, "/tablet/", "Tablet properties");
   fMessengerTablet->DeclarePropertyWithUnit("thickness", "mm", tabletThickness, "Thickness of the tablet");
   tabletThickness = 1.5 * mm;
+  
+  fMessengerHpge = new G4GenericMessenger(this, "/hpge/", "HPGe detector properties");
+  fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
+  hpgeFaceCentreDistance = 3 * cm;
+
 }
 
 MyDetectorConstruction::~MyDetectorConstruction()
@@ -34,8 +40,7 @@ void MyDetectorConstruction::BuildHpge()
 {
   hpgeDiameter = 76 * mm; // assumption based on datasheet
   hpgeThickness = hpgeDiameter; // assumption
-  hpgeFaceCentreDistance = 3 * cm;
-  hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2);
+  hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2 + pointThickness);
   solidHpge = new G4Tubs("solidHpge", 0, hpgeDiameter / 2, hpgeThickness / 2, 0, 360 * deg);
   logicalHpge = new G4LogicalVolume(solidHpge, germanium, "logicalHpge");
   new G4PVPlacement(nullptr, hpgePosition, logicalHpge, "physHpge", logicWorld, false, 0, checkOverlaps);
@@ -69,15 +74,19 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
     0,                                         // copy number
     checkOverlaps);                            // overlaps checking
 
+  // tablet
+  tabletDiameter = 13 * mm;
+  tabletPosition = G4ThreeVector(0, 0, + tabletThickness / 2);
+
   // detection point
   pointSide = 2 * cm;
-  solidPoint = new G4Box("solidPoint", pointSide / 2, pointSide / 2, pointSide / 2);
+  pointDiameter = tabletDiameter * 1.2;
+  pointThickness = tabletThickness * 1.2;
+  solidPoint = new G4Tubs("solidPoint", 0, tabletDiameter / 1.9, tabletThickness / 1.9, 0, 360 * deg);
   logicalPoint = new G4LogicalVolume(solidPoint, air, "logicalPoint");
   new G4PVPlacement(nullptr, G4ThreeVector(), logicalPoint, "physPoint", logicWorld, false, 0, checkOverlaps);
 
   // tablet
-  tabletDiameter = 13 * mm;
-  tabletPosition = G4ThreeVector(0, 0, + tabletThickness / 2);
   solidTablet = new G4Tubs("solidTablet", 0, tabletDiameter / 2, tabletThickness / 2, 0, 360 * deg);
   logicalTablet = new G4LogicalVolume(solidTablet, sorbitol, "logicalTablet");
   new G4PVPlacement(nullptr, tabletPosition, logicalTablet, "physTablet", logicalPoint, false, 0, checkOverlaps);
@@ -87,4 +96,13 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
 
   // always return the physical World
   return physWorld;
+}
+
+void MyDetectorConstruction::ConstructSDandField()
+{
+  MySensitiveDetector *sensDetHpge = new MySensitiveDetector("SensitiveDetectorHpge");
+
+  if(logicalHpge != NULL)
+    logicalHpge->SetSensitiveDetector(sensDetHpge);
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensDetHpge);
 }

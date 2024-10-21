@@ -9,6 +9,8 @@
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4GenericMessenger.hh"
+#include "detector.hh"
+#include "G4SDManager.hh"
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -17,6 +19,7 @@ public:
     ~MyDetectorConstruction();
 
     G4VPhysicalVolume* Construct() override;
+    void ConstructSDandField() override;
     void DefineMaterials();
     void BuildHpge();
 private:
@@ -28,8 +31,8 @@ private:
     G4LogicalVolume *logicWorld;
 
     // tablet point
-    G4double pointSide;
-    G4Box *solidPoint;
+    G4double pointSide, pointDiameter, pointThickness;
+    G4Tubs *solidPoint;
     G4LogicalVolume *logicalPoint;
 
     // tablet
@@ -39,8 +42,6 @@ private:
     G4ThreeVector tabletPosition;
     G4Tubs *solidTablet;
     G4LogicalVolume *logicalTablet;
-
-    // messenger
     G4GenericMessenger *fMessengerTablet;
 
     // HPGe
@@ -51,6 +52,7 @@ private:
     G4ThreeVector hpgePosition;
     G4Tubs *solidHpge;
     G4LogicalVolume *logicalHpge;
+    G4GenericMessenger *fMessengerHpge;
 };
 
 #endif

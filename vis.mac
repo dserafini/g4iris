@@ -1,4 +1,5 @@
 /tablet/thickness 1.5 mm
+/hpge/distance 0 cm
 /run/reinitializeGeometry
 /run/initialize
 /vis/open OGL
