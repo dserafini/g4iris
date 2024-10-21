@@ -6,9 +6,8 @@
 #include "G4VisManager.hh"
 #include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
-#include "QBBC.hh"
-#include "G4DecayPhysics.hh"
 #include "construction.hh"
+#include "physics.hh"
 #include "action.hh"
 
 int main(int argc, char** argv)
@@ -22,12 +21,7 @@ int main(int argc, char** argv)
     #endif
 
     runManager->SetUserInitialization(new MyDetectorConstruction());
-
-    // Physics list before action initialization
-    auto physicsList = new QBBC;
-    physicsList->SetVerboseLevel(1);
-    runManager->SetUserInitialization(physicsList);
-
+    runManager->SetUserInitialization(new MyPhysicsList());
     runManager->SetUserInitialization(new MyActionInitialization());
   
     if (argc == 1)
