@@ -18,8 +18,14 @@ public:
 
     G4VPhysicalVolume* Construct() override;
     void DefineMaterials();
+    void BuildHpge();
 private:
-    G4Material *air, *sorbitol;
+    G4bool checkOverlaps;
+
+    // world
+    G4Material *air;
+    G4Box *solidWorld;
+    G4LogicalVolume *logicWorld;
 
     // tablet point
     G4double pointSide;
@@ -27,6 +33,7 @@ private:
     G4LogicalVolume *logicalPoint;
 
     // tablet
+    G4Material *sorbitol;
     G4double tabletDiameter;
     G4double tabletThickness;
     G4ThreeVector tabletPosition;
@@ -35,6 +42,15 @@ private:
 
     // messenger
     G4GenericMessenger *fMessengerTablet;
+
+    // HPGe
+    G4Material *germanium;
+    G4double hpgeDiameter;
+    G4double hpgeThickness;
+    G4double hpgeFaceCentreDistance;
+    G4ThreeVector hpgePosition;
+    G4Tubs *solidHpge;
+    G4LogicalVolume *logicalHpge;
 };
 
 #endif

@@ -15,13 +15,30 @@ void MyDetectorConstruction::DefineMaterials()
 {
   G4NistManager *nist = G4NistManager::Instance();
 
+  // air
   air = nist->FindOrBuildMaterial("G4_AIR");
+
+  // sorbitol
   G4double density = 275 * mg / ( CLHEP::pi * (13 / 2 * mm) * 1.5 * mm );
   sorbitol = new G4Material("sorbitol", density, 3);
-
   sorbitol->AddElement(nist->FindOrBuildElement("C"), 6);
   sorbitol->AddElement(nist->FindOrBuildElement("H"), 14);
   sorbitol->AddElement(nist->FindOrBuildElement("O"), 6);
+
+  // germanium
+  germanium = new G4Material("germanium", 5.323 * g / cm3, 1);
+  germanium->AddElement(nist->FindOrBuildElement("Ge"), 1);
+}
+
+void MyDetectorConstruction::BuildHpge()
+{
+  hpgeDiameter = 76 * mm; // assumption based on datasheet
+  hpgeThickness = hpgeDiameter; // assumption
+  hpgeFaceCentreDistance = 3 * cm;
+  hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2);
+  solidHpge = new G4Tubs("solidHpge", 0, hpgeDiameter / 2, hpgeThickness / 2, 0, 360 * deg);
+  logicalHpge = new G4LogicalVolume(solidHpge, germanium, "logicalHpge");
+  new G4PVPlacement(nullptr, hpgePosition, logicalHpge, "physHpge", logicWorld, false, 0, checkOverlaps);
 }
 
 G4VPhysicalVolume* MyDetectorConstruction::Construct()
@@ -30,16 +47,16 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
   DefineMaterials();
 
   // Option to switch on/off checking of volumes overlaps
-  G4bool checkOverlaps = true;
+  checkOverlaps = true;
 
   // World
-  G4double world_sizeXY = 10 * cm;
-  G4double world_sizeZ  = 10 * cm;
+  G4double world_sizeXY = 25 * cm;
+  G4double world_sizeZ  = 25 * cm;
 
-  auto solidWorld = new G4Box("World",                           // its name
+  solidWorld = new G4Box("World",                           // its name
     0.5 * world_sizeXY, 0.5 * world_sizeXY, 0.5 * world_sizeZ);  // its size
 
-  auto logicWorld = new G4LogicalVolume(solidWorld,  // its solid
+  logicWorld = new G4LogicalVolume(solidWorld,  // its solid
     air,                                       // its material
     "World");                                        // its name
 
@@ -64,6 +81,9 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
   solidTablet = new G4Tubs("solidTablet", 0, tabletDiameter / 2, tabletThickness / 2, 0, 360 * deg);
   logicalTablet = new G4LogicalVolume(solidTablet, sorbitol, "logicalTablet");
   new G4PVPlacement(nullptr, tabletPosition, logicalTablet, "physTablet", logicalPoint, false, 0, checkOverlaps);
+
+  // HPGe
+  BuildHpge();
 
   // always return the physical World
   return physWorld;
