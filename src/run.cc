@@ -12,9 +12,8 @@ MyRunAction::MyRunAction()
     man->CreateNtupleDColumn("fEdep");
     man->FinishNtuple(0);
 
-    man->CreateNtuple("Hits", "Hits");
-    man->CreateNtupleIColumn("fEvent");
-    man->CreateNtupleDColumn("fX");
+    man->CreateNtuple("Hpge", "Hpge");
+    man->CreateNtupleDColumn("fEdep");
     man->FinishNtuple(1);
 }
 

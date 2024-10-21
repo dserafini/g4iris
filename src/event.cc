@@ -3,6 +3,7 @@
 MyEventAction::MyEventAction(MyRunAction* run)
 {
     fEdep = 0.;
+    fEdepHpge = 0.;
     fRun = run;
 }
 
@@ -12,6 +13,7 @@ MyEventAction::~MyEventAction()
 void MyEventAction::BeginOfEventAction(const G4Event*)
 {
     fEdep = 0.;
+    fEdepHpge = 0.;
     fCrossed = false;
 }
 
@@ -22,8 +24,10 @@ void MyEventAction::EndOfEventAction(const G4Event*)
     G4AnalysisManager *man = G4AnalysisManager::Instance();
 
     man->FillNtupleDColumn(0, 4, fEdep / keV);
+    man->FillNtupleDColumn(1, 0, fEdepHpge / keV);
 
     man->AddNtupleRow(0);
+    man->AddNtupleRow(1);
 
     if (fCrossed)
         fRun->AddOneCross();
