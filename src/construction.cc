@@ -39,8 +39,8 @@ void MyDetectorConstruction::DefineMaterials()
 
 void MyDetectorConstruction::BuildHpge()
 {
-  hpgeDiameter = 2 * 76 * mm; // assumption based on datasheet
-  hpgeThickness = hpgeDiameter * .75; // assumption
+  hpgeDiameter = 76 * mm; // assumption based on datasheet
+  hpgeThickness = hpgeDiameter; // assumption
   hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2 + tabletThickness);
   solidHpge = new G4Tubs("solidHpge", 0, hpgeDiameter / 2, hpgeThickness / 2, 0, 360 * deg);
   logicalHpge = new G4LogicalVolume(solidHpge, germanium, "logicalHpge");
