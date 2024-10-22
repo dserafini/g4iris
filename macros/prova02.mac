@@ -1,18 +1,23 @@
 # to use /control/execute ../macros/prova02.mac
 /run/numberOfThreads 1
-/tablet/thickness 1.5 mm
-/hpge/distance 0 mm
-/tablet/xpos 0 mm
+/control/alias tabletThickness 1.5
+/control/alias tabletRadius 6.5
+/control/alias tabletXpos 0
+/control/alias hpgeTabletDistance 0
+/control/alias gammaEnergy 100
+/tablet/thickness {tabletThickness} mm
+/hpge/distance {hpgeTabletDistance} mm
+/tablet/xpos {tabletXpos} mm
 /run/reinitializeGeometry
 
 /run/initialize
 /gps/particle gamma
 /gps/pos/type Plane
 /gps/pos/shape Circle
-/gps/pos/radius 6.5 mm
-/gps/energy 100 keV
+/gps/pos/radius {tabletRadius} mm
+/gps/energy {gammaEnergy} keV
 /gps/ang/type iso
 # /gps/direction 0 0 -1 # !!! fixed direction !!!
-/gps/pos/centre 0 0 1.5 mm
+/gps/pos/centre {tabletXpos} 0 {tabletThickness} mm
 /run/printProgress 10000
-/run/beamOn 10000
+/run/beamOn 100000
