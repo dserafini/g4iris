@@ -25,12 +25,13 @@ MyPrimaryGenerator::~MyPrimaryGenerator()
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
 {
-
+    // G4cout << "MyPrimaryGenerator::GeneratePrimaries" << G4endl;
     // G4double energy = 10. * keV;
     // fParticleGun->SetParticleDefinition(G4Gamma::Definition());
     // fParticleGun->SetParticleEnergy( energy );
-    G4AnalysisManager *man = G4AnalysisManager::Instance();
+    fParticleGps->GeneratePrimaryVertex(anEvent);
 
+    G4AnalysisManager *man = G4AnalysisManager::Instance();
     // man->FillNtupleDColumn(0, 3, fParticleGun->GetParticleEnergy() / keV); // initial energy
     // fParticleGun->GeneratePrimaryVertex(anEvent);
     // G4ParticleDefinition* particle = fParticleGun->GetParticleDefinition();
@@ -38,5 +39,9 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
     // G4cout << " of energy " << fParticleGun->GetParticleEnergy() / keV << " keV" << G4endl;
 
     man->FillNtupleDColumn(0, 3, fParticleGps->GetParticleEnergy() / keV); // initial energy
-    fParticleGps->GeneratePrimaryVertex(anEvent);
+    man->FillNtupleDColumn(0, 0, fParticleGps->GetParticlePosition().getX() / mm); // [mm]
+    man->FillNtupleDColumn(0, 1, fParticleGps->GetParticlePosition().getY() / mm); // [mm]
+    man->FillNtupleDColumn(0, 2, fParticleGps->GetParticlePosition().getZ() / mm); // [mm]
+    // G4int eventID = anEvent->GetEventID();
+    // G4cout << "eventID " << eventID << "\t pos " << fParticleGps->GetParticlePosition() << G4endl;
 }

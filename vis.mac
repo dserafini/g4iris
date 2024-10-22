@@ -1,5 +1,4 @@
 ## adjust geometry
-# max is 1.5 mm
 /tablet/thickness 1.5 mm
 /hpge/distance 0 mm
 /tablet/xpos 0 mm

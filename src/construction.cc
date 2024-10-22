@@ -8,11 +8,11 @@ MyDetectorConstruction::MyDetectorConstruction()
   fMessengerTablet->DeclarePropertyWithUnit("thickness", "mm", tabletThickness, "Thickness of the tablet");
   fMessengerTablet->DeclarePropertyWithUnit("xpos", "mm", tabletXpos, "X position of the tablet");
   tabletThickness = 1.5 * mm;
-  tabletXpos = 1 * cm;
+  tabletXpos = 0 * cm;
   
   fMessengerHpge = new G4GenericMessenger(this, "/hpge/", "HPGe detector properties");
   fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
-  hpgeFaceCentreDistance = 3 * cm;
+  hpgeFaceCentreDistance = 0 * cm;
 }
 
 MyDetectorConstruction::~MyDetectorConstruction()
@@ -99,6 +99,6 @@ void MyDetectorConstruction::ConstructSDandField()
   MySensitiveHpge *sensDetHpge = new MySensitiveHpge("SensitiveDetectorHpge", "hpgeHitsCollection");
 
   if(logicalHpge != NULL)
-    logicalHpge->SetSensitiveDetector(sensDetHpge);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDetHpge);
+    logicalHpge->SetSensitiveDetector(sensDetHpge);
 }

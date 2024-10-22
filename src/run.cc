@@ -14,6 +14,7 @@ MyRunAction::MyRunAction()
 
     man->CreateNtuple("Hpge", "Hpge");
     man->CreateNtupleDColumn("fEdep");
+    man->CreateNtupleIColumn("fCross");
     man->FinishNtuple(1);
 }
 

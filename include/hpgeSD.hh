@@ -20,6 +20,7 @@ private:
     void Initialize(G4HCofThisEvent*) override;
     void EndOfEvent(G4HCofThisEvent*) override;
     G4double fEdepHpge;
+    G4bool fHpgeCrossed;
     hpgeHitsCollection* fHitsCollection;
 };
 

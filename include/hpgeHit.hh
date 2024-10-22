@@ -6,9 +6,6 @@
 #include "G4Allocator.hh"
 #include "G4ThreeVector.hh"
 #include "tls.hh"
-/// It defines data members to store the trackID, chamberNb, energy deposit,
-/// and position of charged particles in a selected volume:
-/// - fTrackID, fChamberNB, fEdep, fPos
 
 class hpgeHit : public G4VHit
 {

@@ -13,6 +13,7 @@
 #include "G4Proton.hh"
 #include "Randomize.hh"
 #include "G4AnalysisManager.hh"
+#include "G4EventManager.hh"
 
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction
 {
