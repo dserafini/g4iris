@@ -36,7 +36,7 @@ G4bool MySensitiveHpge::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 
 void MySensitiveHpge::EndOfEvent(G4HCofThisEvent*)
 {
-    G4cout << "MySensitiveHpge::EndOfEvent" << G4endl;
+    // G4cout << "MySensitiveHpge::EndOfEvent" << G4endl;
 
     G4int nofHits = fHitsCollection->entries();
     G4double totalEdep = 0;

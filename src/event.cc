@@ -15,7 +15,7 @@ void MyEventAction::BeginOfEventAction(const G4Event*)
 
 void MyEventAction::EndOfEventAction(const G4Event* anEvent)
 {
-    G4cout << "MyEventAction::EndOfEventAction" << G4endl;
+    // G4cout << "MyEventAction::EndOfEventAction" << G4endl;
     // G4cout << "Energy deposition: " << fEdep / keV << " keV" << G4endl;
 
     if ( fHpgeHCID == -1 )
@@ -31,7 +31,9 @@ void MyEventAction::EndOfEventAction(const G4Event* anEvent)
             eventEnergy += (*hpgeHC)[i]->GetEdep();
     }
     else
-        G4cout << "no hits here" << G4endl;
+    {
+        // G4cout << "no hits here" << G4endl;
+    }
 
     // Print per event (modulo n)
     //
@@ -56,7 +58,7 @@ void MyEventAction::EndOfEventAction(const G4Event* anEvent)
 
 void MyEventAction::PrintEventStatistics(G4double absoEdep) const
 {
-    G4cout << "MyEventAction::PrintEventStatistics" << G4endl;
+    // G4cout << "MyEventAction::PrintEventStatistics" << G4endl;
   // print event statistics
   G4cout
      << "   Absorber: total energy: "
@@ -67,7 +69,7 @@ void MyEventAction::PrintEventStatistics(G4double absoEdep) const
 hpgeHitsCollection* MyEventAction::GetHitsCollection(G4int hcID,
                                   const G4Event* event) const
 {
-    G4cout << "MyEventAction::GetHitsCollection" << G4endl;
+    // G4cout << "MyEventAction::GetHitsCollection" << G4endl;
   auto hitsCollection
     = static_cast<hpgeHitsCollection*>(
         event->GetHCofThisEvent()->GetHC(hcID));

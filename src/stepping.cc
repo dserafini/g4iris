@@ -12,8 +12,8 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
 {   
     G4LogicalVolume *volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
 
-    const G4LogicalVolume *logicalPoint = G4LogicalVolumeStore::GetInstance()->GetVolume("logicalPoint");
+    const G4LogicalVolume *logicalHpge = G4LogicalVolumeStore::GetInstance()->GetVolume("logicalHpge");
 
-    if(volume == logicalPoint && !fEventAction->isCrossed())
+    if(volume == logicalHpge && !fEventAction->isCrossed())
         fEventAction->Cross();
 }

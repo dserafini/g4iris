@@ -1,5 +1,5 @@
 # to use /control/execute ../macros/prova02.mac
-/run/numberOfThreads 1
+# /run/numberOfThreads 1
 /tablet/thickness 1.5 mm
 /run/reinitializeGeometry
 /run/initialize
