@@ -22,6 +22,7 @@ public:
     void ConstructSDandField() override;
     void DefineMaterials();
     void BuildHpge();
+    void BuildTablet();
 private:
     G4bool checkOverlaps;
 
@@ -30,17 +31,11 @@ private:
     G4Box *solidWorld;
     G4LogicalVolume *logicWorld;
 
-    // tablet point
-    G4double pointSide, pointDiameter, pointThickness, pointXpos;
-    G4ThreeVector pointPosition;
-    G4Tubs *solidPoint;
-    G4LogicalVolume *logicalPoint;
-    G4GenericMessenger *fMessengerPoint;
-
     // tablet
     G4Material *sorbitol;
     G4double tabletDiameter;
     G4double tabletThickness;
+    G4double tabletXpos;
     G4ThreeVector tabletPosition;
     G4Tubs *solidTablet;
     G4LogicalVolume *logicalTablet;
