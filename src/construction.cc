@@ -65,8 +65,8 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
   checkOverlaps = true;
 
   // World
-  G4double world_sizeXY = 25 * cm;
-  G4double world_sizeZ  = 25 * cm;
+  G4double world_sizeXY = 50 * cm;
+  G4double world_sizeZ  = 50 * cm;
 
   solidWorld = new G4Box("World",                           // its name
     0.5 * world_sizeXY, 0.5 * world_sizeXY, 0.5 * world_sizeZ);  // its size

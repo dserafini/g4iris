@@ -3,7 +3,7 @@
 /control/alias tabletThickness 1.5
 /control/alias tabletRadius 6.5
 /control/alias tabletXpos 0
-/control/alias hpgeTabletDistance 0
+/control/alias hpgeTabletDistance 50
 /control/alias gammaEnergy 100
 /tablet/thickness {tabletThickness} mm
 /hpge/distance {hpgeTabletDistance} mm
