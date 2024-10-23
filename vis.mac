@@ -1,7 +1,7 @@
 ## adjust geometry
 /control/alias tabletThickness 1.5
 /control/alias tabletRadius 6.5
-/control/alias tabletXpos 0
+/control/alias tabletXpos 20
 # /control/multiply tabletZpos {tabletThickness} .5 # contact position
 /control/alias tabletZpos 10 # it will become negative
 /control/alias tabletYrot 90
@@ -10,6 +10,7 @@
 /tablet/xpos {tabletXpos} mm
 /tablet/zpos -{tabletZpos} mm
 /tablet/yrot {tabletYrot} deg
+/hpge/diameter 76 mm
 /run/reinitializeGeometry
 
 
@@ -24,3 +25,4 @@
 /vis/scene/add/eventID
 /vis/scene/endOfEventAction accumulate
 # /gun/particle proton
+/analysis/setFileName output.root
