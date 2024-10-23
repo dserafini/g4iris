@@ -1,7 +1,8 @@
 ## adjust geometry
 /tablet/thickness 1.5 mm
-/hpge/distance 0 mm
+/hpge/distance 20 mm
 /tablet/xpos 0 mm
+/tablet/yrot 90 deg
 
 
 /run/reinitializeGeometry

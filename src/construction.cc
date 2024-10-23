@@ -7,8 +7,10 @@ MyDetectorConstruction::MyDetectorConstruction()
   fMessengerTablet = new G4GenericMessenger(this, "/tablet/", "Tablet properties");
   fMessengerTablet->DeclarePropertyWithUnit("thickness", "mm", tabletThickness, "Thickness of the tablet");
   fMessengerTablet->DeclarePropertyWithUnit("xpos", "mm", tabletXpos, "X position of the tablet");
+  fMessengerTablet->DeclarePropertyWithUnit("yrot", "deg", tabletYrot, "Y rotation of the tablet");
   tabletThickness = 1.5 * mm;
   tabletXpos = 0 * cm;
+  tabletYrot = 0 * deg;
   
   fMessengerHpge = new G4GenericMessenger(this, "/hpge/", "HPGe detector properties");
   fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
@@ -51,9 +53,11 @@ void MyDetectorConstruction::BuildTablet()
 {
   tabletDiameter = 13 * mm;
   tabletPosition = G4ThreeVector(0, 0, + tabletThickness / 2); // primaries are generated on tablet surface
+  rotation = new G4RotationMatrix();
+  rotation->rotateY( tabletYrot );
   solidTablet = new G4Tubs("solidTablet", 0, tabletDiameter / 2, tabletThickness / 2, 0, 360 * deg);
   logicalTablet = new G4LogicalVolume(solidTablet, sorbitol, "logicalTablet");
-  new G4PVPlacement(nullptr, tabletPosition, logicalTablet, "physTablet", logicWorld, false, 0, checkOverlaps);
+  new G4PVPlacement(rotation, tabletPosition, logicalTablet, "physTablet", logicWorld, false, 0, checkOverlaps);
 }
 
 G4VPhysicalVolume* MyDetectorConstruction::Construct()

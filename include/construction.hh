@@ -36,7 +36,9 @@ private:
     G4double tabletDiameter;
     G4double tabletThickness;
     G4double tabletXpos;
+    G4double tabletYrot;
     G4ThreeVector tabletPosition;
+    G4RotationMatrix* rotation;
     G4Tubs *solidTablet;
     G4LogicalVolume *logicalTablet;
     G4GenericMessenger *fMessengerTablet;
