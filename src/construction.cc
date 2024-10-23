@@ -15,13 +15,15 @@ MyDetectorConstruction::MyDetectorConstruction()
   tabletYrot = 0 * deg;
   
   // keeped for reference but I should only move the tablet
-  fMessengerHpge = new G4GenericMessenger(this, "/hpge/", "HPGe detector properties");
+  // fMessengerHpge = new G4GenericMessenger(this, "/hpge/", "HPGe detector properties");
   // fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
   hpgeFaceCentreDistance = 0 * cm;
 }
 
 MyDetectorConstruction::~MyDetectorConstruction()
-{}
+{
+	delete fMessengerTablet;
+}
 
 void MyDetectorConstruction::DefineMaterials()
 {
