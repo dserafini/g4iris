@@ -1,12 +1,10 @@
 # to use /control/execute ../macros/prova02.mac
-/run/numberOfThreads 1
+# /run/numberOfThreads 1
 /control/alias tabletThickness 1.5
 /control/alias tabletRadius 6.5
 /control/alias tabletXpos 0
-/control/alias hpgeTabletDistance 0
 /control/alias gammaEnergy 1500
 /tablet/thickness {tabletThickness} mm
-/hpge/distance {hpgeTabletDistance} mm
 /tablet/xpos {tabletXpos} mm
 /run/reinitializeGeometry
 

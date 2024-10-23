@@ -31,7 +31,9 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     strRunID << runID;
 
     // man->OpenFile("output"+strRunID.str()+".root");
-    man->OpenFile("output.root");
+    // man->OpenFile("output.root");
+    // give output file name by macro
+    man->OpenFile();
 
     fPhotopeakCount = 0;
 }

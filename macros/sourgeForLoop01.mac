@@ -1,0 +1,37 @@
+
+########################################
+## adjust geometry
+########################################
+/control/alias tabletThickness 1.5
+/control/divide tabletHalfThickness {tabletThickness} 2
+/control/alias tabletRadius 6.5
+/control/alias tabletXpos {loopingTabletXpos}
+/control/alias tabletZpos 10 # it will become negative
+/control/alias tabletYrot 90
+/control/alias gammaEnergy 30 # 30 keV is the lowest energy of Mg-28
+/tablet/thickness {tabletThickness} mm
+/tablet/xpos {tabletXpos} mm
+/tablet/zpos -{tabletZpos} mm
+/tablet/yrot {tabletYrot} deg
+
+/run/reinitializeGeometry
+/run/initialize
+
+########################################
+## adjust source
+########################################
+/gps/particle gamma
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius {tabletRadius} mm
+/gps/energy 30 keV
+/gps/ang/type iso
+# /gps/direction 0 0 -1 # !!! fixed direction !!!
+# add half (!) thickness of the tablet
+/control/add sourceXpos {tabletXpos} {tabletHalfThickness}
+/gps/pos/centre {sourceXpos} 0 -{tabletZpos} mm
+/gps/pos/rot1 0 0 1
+/gps/pos/rot2 0 1 0
+
+/analysis/setFileName outputLoopingTabletXpos{loopingTabletXpos}mm.root
+/run/beamOn 10000
