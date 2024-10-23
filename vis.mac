@@ -4,7 +4,7 @@
 /control/alias tabletXpos 0
 # /control/multiply tabletZpos {tabletThickness} .5 # contact position
 /control/alias tabletZpos 10 # it will become negative
-/control/alias tabletYrot 0
+/control/alias tabletYrot 90
 /control/alias gammaEnergy 50
 /tablet/thickness {tabletThickness} mm
 /tablet/xpos {tabletXpos} mm
