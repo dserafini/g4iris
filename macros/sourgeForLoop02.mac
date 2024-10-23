@@ -1,0 +1,44 @@
+
+########################################
+## adjust geometry
+########################################
+/control/alias tabletThickness 1.5
+/control/divide tabletHalfThickness {tabletThickness} 2
+/control/alias tabletRadius 6.5
+/control/alias tabletXpos 0
+/control/alias tabletZpos -10
+/control/alias tabletYrot 0
+/control/alias gammaEnergy 30 # 30 keV is the lowest energy of Mg-28
+/tablet/thickness {tabletThickness} mm
+/tablet/xpos {tabletXpos} mm
+/tablet/zpos {tabletZpos} mm
+/tablet/yrot {tabletYrot} deg
+/hpge/diameter {loopingHpgeDiameter} mm
+
+/run/reinitializeGeometry
+/run/initialize
+
+########################################
+## adjust source
+########################################
+# /gps/particle proton # for gui
+/gps/particle gamma
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius {tabletRadius} mm
+/gps/energy {gammaEnergy} keV
+/gps/ang/type iso
+# /gps/direction 0 0 -1 # !!! fixed direction !!!
+# add half (!) thickness of the tablet
+/control/alias sourceXpos {tabletXpos} # for 0 deg or 180 deg source
+# /control/alias sourceZpos {tabletZpos} # for 90 deg or 270 deg source
+# /control/add sourceXpos {tabletXpos} {tabletHalfThickness} # for 270 deg source
+# /control/subtract sourceXpos {tabletXpos} {tabletHalfThickness} # for 90 deg source
+/control/add sourceZpos {tabletZpos} {tabletHalfThickness} # for 0 deg, looking the detector
+# /control/subtract sourceZpos {tabletZpos} {tabletHalfThickness} # for 180 deg, opposite to the detector
+/gps/pos/centre {sourceXpos} 0 {sourceZpos} mm
+/gps/pos/rot1 1 0 0
+/gps/pos/rot2 0 1 0
+
+/analysis/setFileName outputLoopingHpgeDiameter{loopingHpgeDiameter}mm.root
+/run/beamOn 10000

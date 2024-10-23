@@ -15,8 +15,10 @@ MyDetectorConstruction::MyDetectorConstruction()
   tabletYrot = 0 * deg;
   
   // keeped for reference but I should only move the tablet
-  // fMessengerHpge = new G4GenericMessenger(this, "/hpge/", "HPGe detector properties");
+  fMessengerHpge = new G4GenericMessenger(this, "/hpge/", "HPGe detector properties");
+  fMessengerHpge->DeclarePropertyWithUnit("diameter", "mm", hpgeDiameter, "HPGe detector diameter");
   // fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
+  hpgeDiameter = 76 * mm; // assumption based on datasheet
   hpgeFaceCentreDistance = 0 * cm;
 }
 
@@ -46,7 +48,6 @@ void MyDetectorConstruction::DefineMaterials()
 
 void MyDetectorConstruction::BuildHpge()
 {
-  hpgeDiameter = 76 * mm; // assumption based on datasheet
   hpgeThickness = hpgeDiameter; // assumption
   hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2);
   solidHpge = new G4Tubs("solidHpge", 0, hpgeDiameter / 2, hpgeThickness / 2, 0, 360 * deg);
