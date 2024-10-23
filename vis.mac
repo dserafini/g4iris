@@ -1,11 +1,18 @@
 ## adjust geometry
-/tablet/thickness 1.5 mm
-/hpge/distance 20 mm
-/tablet/xpos 0 mm
-/tablet/yrot 90 deg
-
-
+/control/alias tabletThickness 1.5
+/control/alias tabletRadius 6.5
+/control/alias tabletXpos 0
+# /control/multiply tabletZpos {tabletThickness} .5 # contact position
+/control/alias tabletZpos 10 # it will become negative
+/control/alias tabletYrot 0
+/control/alias gammaEnergy 50
+/tablet/thickness {tabletThickness} mm
+/tablet/xpos {tabletXpos} mm
+/tablet/zpos -{tabletZpos} mm
+/tablet/yrot {tabletYrot} deg
 /run/reinitializeGeometry
+
+
 /run/initialize
 /vis/open OGL
 /vis/viewer/set/viewpointVector 1 1 1

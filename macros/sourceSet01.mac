@@ -1,0 +1,13 @@
+# no geometry modification here!
+# to use /control/execute ../macros/sourceSet01.mac
+
+/gps/particle proton
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius 6.5 mm
+/gps/energy 10 keV
+/gps/ang/type iso
+# /gps/direction 0 0 -1 # !!! fixed direction !!!
+/gps/pos/centre 0 0 -10.75 mm
+/gps/pos/rot1 1 0 0
+/gps/pos/rot2 0 1 0

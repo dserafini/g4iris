@@ -7,8 +7,8 @@
 /control/alias hpgeTabletDistance 0
 /control/alias gammaEnergy 50
 /tablet/thickness {tabletThickness} mm
-/hpge/distance {hpgeTabletDistance} mm
 /tablet/xpos {tabletXpos} mm
+/tablet/zpos 0 mm
 /tablet/yrot {tabletYrot} deg
 /run/reinitializeGeometry
 

@@ -36,6 +36,7 @@ private:
     G4double tabletDiameter;
     G4double tabletThickness;
     G4double tabletXpos;
+    G4double tabletZpos;
     G4double tabletYrot;
     G4ThreeVector tabletPosition;
     G4RotationMatrix* rotation;

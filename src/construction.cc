@@ -7,13 +7,16 @@ MyDetectorConstruction::MyDetectorConstruction()
   fMessengerTablet = new G4GenericMessenger(this, "/tablet/", "Tablet properties");
   fMessengerTablet->DeclarePropertyWithUnit("thickness", "mm", tabletThickness, "Thickness of the tablet");
   fMessengerTablet->DeclarePropertyWithUnit("xpos", "mm", tabletXpos, "X position of the tablet");
+  fMessengerTablet->DeclarePropertyWithUnit("zpos", "mm", tabletZpos, "Z position of the tablet");
   fMessengerTablet->DeclarePropertyWithUnit("yrot", "deg", tabletYrot, "Y rotation of the tablet");
   tabletThickness = 1.5 * mm;
-  tabletXpos = 0 * cm;
+  tabletXpos = 0 * mm;
+  tabletZpos = - tabletThickness / 2;
   tabletYrot = 0 * deg;
   
+  // keeped for reference but I should only move the tablet
   fMessengerHpge = new G4GenericMessenger(this, "/hpge/", "HPGe detector properties");
-  fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
+  // fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
   hpgeFaceCentreDistance = 0 * cm;
 }
 
@@ -43,7 +46,7 @@ void MyDetectorConstruction::BuildHpge()
 {
   hpgeDiameter = 76 * mm; // assumption based on datasheet
   hpgeThickness = hpgeDiameter; // assumption
-  hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2 + tabletThickness);
+  hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2);
   solidHpge = new G4Tubs("solidHpge", 0, hpgeDiameter / 2, hpgeThickness / 2, 0, 360 * deg);
   logicalHpge = new G4LogicalVolume(solidHpge, germanium, "logicalHpge");
   new G4PVPlacement(nullptr, hpgePosition, logicalHpge, "physHpge", logicWorld, false, 0, checkOverlaps);
@@ -52,7 +55,7 @@ void MyDetectorConstruction::BuildHpge()
 void MyDetectorConstruction::BuildTablet()
 {
   tabletDiameter = 13 * mm;
-  tabletPosition = G4ThreeVector(0, 0, + tabletThickness / 2); // primaries are generated on tablet surface
+  tabletPosition = G4ThreeVector(0, 0, tabletZpos); // primaries are generated on tablet surface
   rotation = new G4RotationMatrix();
   rotation->rotateY( tabletYrot );
   solidTablet = new G4Tubs("solidTablet", 0, tabletDiameter / 2, tabletThickness / 2, 0, 360 * deg);
