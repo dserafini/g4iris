@@ -42,8 +42,7 @@ void MyDetectorConstruction::DefineMaterials()
   sorbitol->AddElement(nist->FindOrBuildElement("O"), 6);
 
   // germanium
-  germanium = new G4Material("germanium", 5.323 * g / cm3, 1);
-  germanium->AddElement(nist->FindOrBuildElement("Ge"), 1);
+  germanium = nist->FindOrBuildMaterial("G4_Ge");
 }
 
 void MyDetectorConstruction::BuildHpge()
