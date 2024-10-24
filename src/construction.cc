@@ -47,6 +47,9 @@ void MyDetectorConstruction::DefineMaterials()
 
 void MyDetectorConstruction::BuildHpge()
 {
+  // add aluminum case
+
+  
   hpgeThickness = hpgeDiameter; // assumption
   hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2);
   solidHpge = new G4Tubs("solidHpge", 0, hpgeDiameter / 2, hpgeThickness / 2, 0, 360 * deg);
