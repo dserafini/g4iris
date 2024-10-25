@@ -20,6 +20,9 @@ MyDetectorConstruction::MyDetectorConstruction()
   // fMessengerHpge->DeclarePropertyWithUnit("distance", "mm", hpgeFaceCentreDistance, "HPGe detector - source distance");
   hpgeDiameter = 76 * mm; // assumption based on datasheet
   hpgeFaceCentreDistance = 0 * cm;
+  hpgeActiveVolumeDiameter = 70 * mm;
+  hpgeCapThickness = .5 * mm;
+  hpgeCaseWallThickness = .75 * mm;
 }
 
 MyDetectorConstruction::~MyDetectorConstruction()
@@ -51,6 +54,8 @@ void MyDetectorConstruction::BuildHpge()
 
   
   hpgeThickness = hpgeDiameter; // assumption
+  hpgeActiveVolumeThickness = hpgeActiveVolumeDiameter;
+  hpgeCapDiameter = hpgeDiameter;
   hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2);
   solidHpge = new G4Tubs("solidHpge", 0, hpgeDiameter / 2, hpgeThickness / 2, 0, 360 * deg);
   logicalHpge = new G4LogicalVolume(solidHpge, germanium, "logicalHpge");

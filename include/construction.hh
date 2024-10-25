@@ -48,10 +48,23 @@ private:
     G4Material *germanium;
     G4double hpgeDiameter;
     G4double hpgeThickness;
+    G4double hpgeActiveVolumeDiameter;
+    G4double hpgeActiveVolumeThickness;
+    G4double hpgeCaseDiameter;
+    G4double hpgeCaseThickness;
+    G4double hpgeCaseWallThickness;
+    G4double hpgeCapDiameter;
+    G4double hpgeCapThickness;
     G4double hpgeFaceCentreDistance;
     G4ThreeVector hpgePosition;
     G4Tubs *solidHpge;
     G4LogicalVolume *logicalHpge;
+    G4Tubs *solidHpgeActiveVolume;
+    G4LogicalVolume *logicalHpgeActiveVolume;
+    G4Tubs *solidHpgeCase;
+    G4LogicalVolume *logicalHpgeCase;
+    G4Tubs *solidHpgeCap;
+    G4LogicalVolume *logicalHpgeCap;
     G4GenericMessenger *fMessengerHpge;
 };
 
