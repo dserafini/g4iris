@@ -46,6 +46,8 @@ private:
 
     // HPGe
     G4Material *germanium;
+    G4Material *aluminum;
+    G4Material *beryllium;
     G4double hpgeDiameter;
     G4double hpgeThickness;
     G4double hpgeActiveVolumeDiameter;
@@ -53,7 +55,6 @@ private:
     G4double hpgeCaseDiameter;
     G4double hpgeCaseThickness;
     G4double hpgeCaseWallThickness;
-    G4double hpgeCapDiameter;
     G4double hpgeCapThickness;
     G4double hpgeFaceCentreDistance;
     G4ThreeVector hpgePosition;
