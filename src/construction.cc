@@ -46,20 +46,41 @@ void MyDetectorConstruction::DefineMaterials()
 
   // germanium
   germanium = nist->FindOrBuildMaterial("G4_Ge");
+
+  // aluminum
+  aluminum = nist->FindOrBuildMaterial("G4_Al");
+
+  // beryllium
+  beryllium = nist->FindOrBuildMaterial("G4_Be");
 }
 
 void MyDetectorConstruction::BuildHpge()
 {
-  // add aluminum case
-
-  
   hpgeThickness = hpgeDiameter; // assumption
-  hpgeActiveVolumeThickness = hpgeActiveVolumeDiameter;
-  hpgeCapDiameter = hpgeDiameter;
   hpgePosition = G4ThreeVector(0, 0, hpgeFaceCentreDistance + hpgeThickness / 2);
   solidHpge = new G4Tubs("solidHpge", 0, hpgeDiameter / 2, hpgeThickness / 2, 0, 360 * deg);
-  logicalHpge = new G4LogicalVolume(solidHpge, germanium, "logicalHpge");
+  logicalHpge = new G4LogicalVolume(solidHpge, air, "logicalHpge");
   new G4PVPlacement(nullptr, hpgePosition, logicalHpge, "physHpge", logicWorld, false, 0, checkOverlaps);
+
+  // add aluminum case
+  G4double hpgeCaseOuterRadius = hpgeDiameter / 2;
+  G4double hpgeCaseInnerRadius = hpgeCaseOuterRadius - hpgeCaseWallThickness;
+  solidHpgeCase = new G4Tubs("solidHpgeCase", hpgeCaseInnerRadius, hpgeCaseOuterRadius, hpgeThickness / 2, 0, 360 * deg);
+  logicalHpgeCase = new G4LogicalVolume(solidHpgeCase, aluminum, "logicalHpgeCase");
+  new G4PVPlacement(nullptr, G4ThreeVector(), logicalHpgeCase, "physHpgeCase", logicalHpge, false, 0, checkOverlaps);
+
+  // add beryllium cap
+  G4double hpgeCapRadius = hpgeCaseInnerRadius;
+  G4ThreeVector hpgeCapPosition = G4ThreeVector(0, 0, - hpgeThickness / 2 + hpgeCapThickness / 2);
+  solidHpgeCap = new G4Tubs("solidHpgeCap", 0, hpgeCapRadius, hpgeCapThickness / 2, 0, 360 * deg);
+  logicalHpgeCap = new G4LogicalVolume(solidHpgeCap, beryllium, "logicalHpgeCap");
+  new G4PVPlacement(nullptr, hpgeCapPosition, logicalHpgeCap, "physHpgeCap", logicalHpge, false, 0, checkOverlaps);
+
+  // add active volume
+  hpgeActiveVolumeThickness = hpgeActiveVolumeDiameter;
+  solidHpgeActiveVolume = new G4Tubs("solidHpgeActiveVolume", 0, hpgeActiveVolumeDiameter / 2, hpgeActiveVolumeThickness / 2, 0, 360 * deg);
+  logicalHpgeActiveVolume = new G4LogicalVolume(solidHpgeActiveVolume, germanium, "logicalHpgeActiveVolume");
+  new G4PVPlacement(nullptr, G4ThreeVector(), logicalHpgeActiveVolume, "physHpgeActiveVolume", logicalHpge, false, 0, checkOverlaps);
 }
 
 void MyDetectorConstruction::BuildTablet()
