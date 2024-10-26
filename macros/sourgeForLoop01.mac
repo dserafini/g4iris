@@ -11,7 +11,7 @@
 /control/alias tabletYrot 90 # for 90 deg or 270 deg source
 # 30 keV is the lowest energy of Mg-28
 # 1368 keV is the lowest energy of Na-24
-/control/alias gammaEnergy 400
+/control/alias gammaEnergy 30
 /control/alias hpgeDiameter 76
 /tablet/thickness {tabletThickness} mm
 /tablet/xpos {tabletXpos} mm
@@ -47,4 +47,4 @@
 /gps/pos/rot2 0 1 0 # for 90 deg or 270 deg source
 
 /analysis/setFileName outputLoopingTabletXpos{loopingTabletXpos}mm.root
-/run/beamOn 10000
+/run/beamOn 100000

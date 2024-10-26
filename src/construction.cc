@@ -137,7 +137,7 @@ void MyDetectorConstruction::ConstructSDandField()
 {
   MySensitiveHpge *sensDetHpge = new MySensitiveHpge("SensitiveDetectorHpge", "hpgeHitsCollection");
 
-  if(logicalHpge != NULL)
+  if(logicalHpgeActiveVolume != NULL)
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDetHpge);
-    logicalHpge->SetSensitiveDetector(sensDetHpge);
+    logicalHpgeActiveVolume->SetSensitiveDetector(sensDetHpge);
 }
