@@ -10,6 +10,7 @@ MyDetectorConstruction::MyDetectorConstruction()
   fMessengerTablet->DeclarePropertyWithUnit("zpos", "mm", tabletZpos, "Z position of the tablet");
   fMessengerTablet->DeclarePropertyWithUnit("yrot", "deg", tabletYrot, "Y rotation of the tablet");
   tabletThickness = 1.5 * mm;
+  G4double tabletXposFromCAD = 100 * mm; // slider - detector centre-centre is 10 cm by CAD
   tabletXpos = 0 * mm;
   tabletZpos = - tabletThickness / 2;
   tabletYrot = 0 * deg;
