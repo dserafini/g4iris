@@ -12,7 +12,7 @@
 #include "G4Gamma.hh"
 #include "G4Proton.hh"
 #include "Randomize.hh"
-#include "G4AnalysisManager.hh"
+#include "analysis.hh"
 #include "G4EventManager.hh"
 
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction

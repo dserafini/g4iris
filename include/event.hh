@@ -4,7 +4,6 @@
 #include "G4UserEventAction.hh"
 #include "G4Event.hh"
 #include "G4SDManager.hh"
-#include "G4AnalysisManager.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4RunManager.hh"
 #include "run.hh"
